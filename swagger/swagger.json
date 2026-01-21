@@ -1,0 +1,250 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Library API",
+    "description": "API for managing authors and books",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Local server"
+    }
+  ],
+  "tags": [
+    { "name": "Authors", "description": "Author management" },
+    { "name": "Books", "description": "Book management" }
+  ],
+  "paths": {
+    "/authors": {
+      "get": {
+        "summary": "Get all authors",
+        "tags": ["Authors"],
+        "responses": {
+          "200": { "description": "List of authors" },
+          "500": { "description": "Server error" }
+        }
+      },
+      "post": {
+        "summary": "Create a new author",
+        "tags": ["Authors"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["firstName", "lastName", "birthYear"],
+                "properties": {
+                  "firstName": { "type": "string" },
+                  "lastName": { "type": "string" },
+                  "birthYear": { "type": "integer" }
+                }
+              },
+              "example": {
+                "firstName": "Emma",
+                "lastName": "Owilli",
+                "birthYear": 2000
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Author created successfully" },
+          "400": { "description": "Invalid input" },
+          "500": { "description": "Internal server error" }
+        }
+      }
+    },
+
+    "/authors/{id}": {
+      "get": {
+        "summary": "Get author by ID",
+        "tags": ["Authors"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Author found" },
+          "404": { "description": "Author not found" },
+          "500": { "description": "Server error" }
+        }
+      },
+      "put": {
+        "summary": "Update an author",
+        "tags": ["Authors"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["firstName", "lastName", "birthYear"],
+                "properties": {
+                  "firstName": { "type": "string" },
+                  "lastName": { "type": "string" },
+                  "birthYear": { "type": "integer" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": { "description": "Author updated" },
+          "400": { "description": "Invalid input" },
+          "404": { "description": "Author not found" },
+          "500": { "description": "Server error" }
+        }
+      },
+      "delete": {
+        "summary": "Delete an author",
+        "tags": ["Authors"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Author deleted" },
+          "404": { "description": "Author not found" },
+          "500": { "description": "Server error" }
+        }
+      }
+    },
+
+    "/books": {
+      "get": {
+        "summary": "Get all books",
+        "tags": ["Books"],
+        "responses": {
+          "200": { "description": "List of books" },
+          "500": { "description": "Server error" }
+        }
+      },
+      "post": {
+        "summary": "Create a new book",
+        "tags": ["Books"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "title",
+                  "author",
+                  "year",
+                  "genre",
+                  "pages",
+                  "publisher",
+                  "isbn"
+                ],
+                "properties": {
+                  "title": { "type": "string" },
+                  "author": { "type": "string" },
+                  "year": { "type": "integer" },
+                  "genre": { "type": "string" },
+                  "place": { "type": "string" },
+                  "pages": { "type": "integer" },
+                  "publisher": { "type": "string" },
+                  "isbn": { "type": "string" }
+                }
+              },
+              "example": {
+                "title": "Things Fall Apart",
+                "author": "Emma Owilli",
+                "year": 2000,
+                "genre": "Novel",
+                "place": "Nigeria",
+                "pages": 209,
+                "publisher": "Willstreet",
+                "isbn": "9780385474542"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Book created successfully" },
+          "400": { "description": "Invalid input" },
+          "500": { "description": "Server error" }
+        }
+      }
+    },
+
+    "/books/{id}": {
+      "put": {
+        "summary": "Update a book",
+        "tags": ["Books"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": { "type": "string" },
+                  "author": { "type": "string" },
+                  "year": { "type": "integer" },
+                  "genre": { "type": "string" },
+                  "place": { "type": "string" },
+                  "pages": { "type": "integer" },
+                  "publisher": { "type": "string" },
+                  "isbn": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": { "description": "Book updated" },
+          "404": { "description": "Book not found" },
+          "500": { "description": "Server error" }
+        }
+      },
+      "delete": {
+        "summary": "Delete a book",
+        "tags": ["Books"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Book deleted" },
+          "404": { "description": "Book not found" },
+          "500": { "description": "Server error" }
+        }
+      }
+    }
+  }
+}
+
+
+
