@@ -3,12 +3,16 @@
   "info": {
     "title": "Library API",
     "description": "API for managing authors and books",
-    "version": "1.0.0"
+    "version": "1.0.1"
   },
   "servers": [
     {
       "url": "http://localhost:8080",
-      "description": "Local server"
+      "description": "Local development server"
+    },
+    {
+      "url": "https://library1-api.onrender.com",
+      "description": "Render production server"
     }
   ],
   "tags": [
@@ -245,6 +249,7 @@
     }
   }
 }
+
 
 
 
